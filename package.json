@@ -1,0 +1,19 @@
+{
+  "name": "imd_s4_autonomous_transportation",
+  "version": "0.0.1",
+  "description": "software for autonomous transportation service aimed at party people",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puresick/imd_s4_autonomous_transportation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/puresick/imd_s4_autonomous_transportation/issues"
+  },
+  "homepage": "https://github.com/puresick/imd_s4_autonomous_transportation#readme"
+}
