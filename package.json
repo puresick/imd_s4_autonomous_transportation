@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/puresick/imd_s4_autonomous_transportation/issues"
   },
-  "homepage": "https://github.com/puresick/imd_s4_autonomous_transportation#readme"
+  "homepage": "https://github.com/puresick/imd_s4_autonomous_transportation#readme",
+  "dependencies": {
+    "mqtt": "^1.10.0"
+  }
 }
