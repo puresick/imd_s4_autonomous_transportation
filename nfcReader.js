@@ -1,6 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
-var dbUrl = 'mongodb://localhost:27017/atbusphere';
+var settings = require('./settings/connectionSettings.json');
+
+var dbUrl = settings.mongo.url + settings.mongo.db;
 
 function paymentDemo(paymentName, paymentValue, connectedDb) {
   console.log('Connecting to ' + paymentName + ' Payment API');
@@ -20,9 +22,10 @@ function paymentDemo(paymentName, paymentValue, connectedDb) {
 };
 
 MongoClient.connect(dbUrl, function(error, db) {
-  console.log('MongoDB connection established');
+  (error) ? console.error(error) : console.log('MongoDB connection established');;
+
   var userCollection = db.collection('users');
-  var searchId = new ObjectID(process.argv[3]);
+  var searchId = new ObjectID(settings.demo.userId);
 
   userCollection.find({_id: searchId}).toArray(function(error, items) {
     (error) ? console.log(error) : null;
@@ -30,22 +33,22 @@ MongoClient.connect(dbUrl, function(error, db) {
     if (items === undefined || items.length === 0) {
       console.error('No valid customer');
       db.close();
-    } else if (process.argv[2] === 'payment') {
+    } else if (settings.type === 'payment') {
       switch (items[0].paymentmethod) {
         case "EuroCard":
-          paymentDemo(items[0].paymentmethod, process.argv[4], db);
+          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
           break;
         case "PayPal":
-          paymentDemo(items[0].paymentmethod, process.argv[4], db);
+          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
           break;
         case "Mastercard":
-          paymentDemo(items[0].paymentmethod, process.argv[4], db);
+          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
           break;
         default:
           console.log('no payment');
           break;
       };
-    } else if (process.argv[2] === 'door') {
+    } else if (settings.type === 'door') {
       //checking if id available, if true, granting user access
       if (items[0]._id) {
         //put code here to open door, for demo to simulate door opening
