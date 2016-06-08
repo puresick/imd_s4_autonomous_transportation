@@ -1,6 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
-var settings = require('./settings/connectionSettings.json');
+var settings = require('./settings/readerSettings.json');
+
+var demo = require('./settings/demoSettings.json');
 
 var dbUrl = settings.mongo.url + settings.mongo.db;
 
@@ -25,7 +27,9 @@ MongoClient.connect(dbUrl, function(error, db) {
   (error) ? console.error(error) : console.log('MongoDB connection established');;
 
   var userCollection = db.collection('users');
-  var searchId = new ObjectID(settings.demo.userId);
+  var clubCollection = db.collections('clubs');
+
+  var searchId = new ObjectID(demo.demo.userId);
 
   userCollection.find({_id: searchId}).toArray(function(error, items) {
     (error) ? console.log(error) : null;
@@ -36,13 +40,13 @@ MongoClient.connect(dbUrl, function(error, db) {
     } else if (settings.type === 'payment') {
       switch (items[0].paymentmethod) {
         case "EuroCard":
-          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
+          paymentDemo(items[0].paymentmethod, demo.demo.cashValue, db);
           break;
         case "PayPal":
-          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
+          paymentDemo(items[0].paymentmethod, demo.demo.cashValue, db);
           break;
         case "Mastercard":
-          paymentDemo(items[0].paymentmethod, settings.demo.cashValue, db);
+          paymentDemo(items[0].paymentmethod, demo.demo.cashValue, db);
           break;
         default:
           console.log('no payment');
