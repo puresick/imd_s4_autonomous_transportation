@@ -1,5 +1,5 @@
 {
-  "name": "dummydatagenerator",
+  "name": "dummy-data-generator",
   "version": "0.0.1",
   "description": "generates dummy data for our project",
   "main": "generator-users.js",
