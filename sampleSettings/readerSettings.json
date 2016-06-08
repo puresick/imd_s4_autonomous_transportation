@@ -1,0 +1,14 @@
+{
+  "mongo": {
+    "url": "MONGODB_URL_INCLUDING_PORT_AND_ENDING_SLASH",
+    "db": "DATABASE_NAME"
+  },
+
+  "type": "payment",
+
+  "location": {
+    "name": "LOCATION_NAME"
+  } 
+}
+
+
