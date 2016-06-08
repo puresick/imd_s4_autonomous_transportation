@@ -53,7 +53,8 @@ MongoClient.connect(dbUrl, function(error, db) {
     if (items === undefined || items.length === 0) {
       console.error('No valid customer');
       db.close();
-    } else if (settings.type === 'payment') {
+    } else if (process.argv[3] === 'payment') {
+    //} else if (settings.type === 'payment') {
       switch (items[0].paymentmethod) {
         case "EuroCard":
           paymentDemo(items[0], demo.demo.cashValue, db);
@@ -66,14 +67,20 @@ MongoClient.connect(dbUrl, function(error, db) {
           break;
         default:
           console.log('no payment');
+          db.close();
           break;
       };
-    } else if (settings.type === 'door') {
+    } else if (process.argv[3] === 'door') {
+    //} else if (settings.type === 'door') {
       //checking if id available, if true, granting user access
       if (items[0]._id) {
         //put code here to open door, for demo to simulate door opening
         console.log('user access granted')
+        db.close();
       };
+    } else {
+      console.log('invalid demo option - use \'door\' or \'payment\'');
+      db.close();
     };
   });
 });
