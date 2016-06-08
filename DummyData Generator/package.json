@@ -1,0 +1,18 @@
+{
+  "name": "dummydatagenerator",
+  "version": "0.0.1",
+  "description": "generates dummy data for our project",
+  "main": "generator-users.js",
+  "dependencies": {
+    "faker": "^3.1.0",
+    "mongodb": "^2.1.21",
+    "mongoose": "^4.4.20",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node generator-users.js 30"
+  },
+  "author": "Max Sommer",
+  "license": "ISC"
+}
