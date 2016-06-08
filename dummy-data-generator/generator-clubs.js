@@ -9,9 +9,9 @@ var mongoose 		= require('mongoose');
 
 console.log("generator-clubs.js");
 if( numberOfClubs != 1 )
-	console.log("now creating " + numberOfClubs + " dummy clubses");
+	console.log("now creating " + numberOfClubs + " dummy clubs");
 else
-	console.log("now creating " + numberOfClubs + " dummy clubses");
+	console.log("now creating " + numberOfClubs + " dummy club");
 
 
 
@@ -75,12 +75,3 @@ db.once('open', function() {
 
 
 });
-
-/*
-
-
-
-
-
-}
-*/

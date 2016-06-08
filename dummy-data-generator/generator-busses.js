@@ -11,7 +11,7 @@ console.log("generator-busses.js");
 if( numberOfBusses != 1 )
 	console.log("now creating " + numberOfBusses + " dummy busses");
 else
-	console.log("now creating " + numberOfBusses + " dummy busses");
+	console.log("now creating " + numberOfBusses + " dummy bus");
 
 
 
@@ -59,12 +59,3 @@ db.once('open', function() {
 
 
 });
-
-/*
-
-
-
-
-
-}
-*/

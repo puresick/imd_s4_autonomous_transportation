@@ -36,3 +36,15 @@ as in the name, generates clubs
 example:
 
 	$ node generator-clubs.js 25
+
+
+
+### generator-clubs.js
+as in the name, generates clubs  
+in contrast to all the other generators it does not need any arguments. it loads existing users and clubs and generates transactions between them.
+
+	$ node generator-transactions.js
+
+example:
+
+	$ node generator-transactions.js
