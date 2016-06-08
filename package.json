@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/puresick/imd_s4_autonomous_transportation#readme",
   "dependencies": {
+    "mongodb": "^2.1.21",
     "mqtt": "^1.10.0"
   }
 }
