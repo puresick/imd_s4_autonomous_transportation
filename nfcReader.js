@@ -1,7 +1,9 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var settings = require('./settings/readerSettings.json');
+var nfc = require('MFRC522-node');
 var demo;
+var lastUserId = null;
 
 switch (process.argv[2]) {
   case "demo1":
@@ -39,48 +41,63 @@ function paymentDemo(user, paymentValue, connectedDb) {
   }, 7000);
 };
 
-MongoClient.connect(dbUrl, function(error, db) {
-  (error) ? console.error(error) : console.log('MongoDB connection established');;
+setInterval(function() {
+  lastUserId = null;
+}, 3000);
 
-  var userCollection = db.collection('users');
-  var clubCollection = db.collections('clubs');
+var nfcReaderCallback = function() {
+  this.onUid = function(nfcId) {
 
-  var searchId = new ObjectID(demo.demo.userId);
+    if (lastUserId == null) {
+      lastUserId = nfcId;
 
-  userCollection.find({_id: searchId}).toArray(function(error, items) {
-    (error) ? console.log(error) : null;
+      MongoClient.connect(dbUrl, function(error, db) {
+        (error) ? console.error(error) : console.log('MongoDB connection established');
 
-    if (items === undefined || items.length === 0) {
-      console.error('No valid customer');
-      db.close();
-    } else if (process.argv[3] === 'payment') {
-    //} else if (settings.type === 'payment') {
-      switch (items[0].paymentmethod) {
-        case "EuroCard":
-          paymentDemo(items[0], demo.demo.cashValue, db);
-          break;
-        case "PayPal":
-          paymentDemo(items[0], demo.demo.cashValue, db);
-          break;
-        case "Mastercard":
-          paymentDemo(items[0], demo.demo.cashValue, db);
-          break;
-        default:
-          console.log('no payment');
-          db.close();
-          break;
-      };
-    } else if (process.argv[3] === 'door') {
-    //} else if (settings.type === 'door') {
-      //checking if id available, if true, granting user access
-      if (items[0]._id) {
-        //put code here to open door, for demo to simulate door opening
-        console.log('user access granted')
-        db.close();
-      };
-    } else {
-      console.log('invalid demo option - use \'door\' or \'payment\'');
-      db.close();
+        var userCollection = db.collection('users');
+        var clubCollection = db.collections('clubs');
+
+        var searchId = new ObjectID(lastUserId);
+
+        userCollection.find({_id: searchId}).toArray(function(error, items) {
+          (error) ? console.log(error) : null;
+
+          if (items === undefined || items.length === 0) {
+            console.error('No valid customer');
+            db.close();
+          } else if (process.argv[3] === 'payment') {
+          //} else if (settings.type === 'payment') {
+            switch (items[0].paymentmethod) {
+              case "EuroCard":
+                paymentDemo(items[0], demo.demo.cashValue, db);
+                break;
+              case "PayPal":
+                paymentDemo(items[0], demo.demo.cashValue, db);
+                break;
+              case "Mastercard":
+                paymentDemo(items[0], demo.demo.cashValue, db);
+                break;
+              default:
+                console.log('no payment');
+                db.close();
+                break;
+            };
+          } else if (process.argv[3] === 'door') {
+          //} else if (settings.type === 'door') {
+            //checking if id available, if true, granting user access
+            if (items[0]._id) {
+              //put code here to open door, for demo to simulate door opening
+              console.log('user access granted')
+              db.close();
+            };
+          } else {
+            console.log('invalid demo option - use \'door\' or \'payment\'');
+            db.close();
+          };
+        });
+      });
     };
-  });
-});
+  }
+};
+
+nfc.start(new nfcReaderCallback());
