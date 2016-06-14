@@ -7,6 +7,8 @@
 This is the script running on the prototype of the nfc reader module.
 before you run the script you have to rename the `sampleSetting` folder into `setings` and fill in the options in the files from that folder.
 
+The NFC Tag needs to be written with a compatible user id
+
 ###Publisher
 
 `node publisher.js [DURATION] [INTERVAL] [TOPIC] [MESSAGE]`
