@@ -28,7 +28,8 @@ db.once('open', function() {
 		email: String,
 		image: String,
 		paymentmethod: String,
-		paymentauth: String
+		paymentauth: String,
+		taguid: String
 	});
 	var usermodel = mongoose.model('users', userSchema);
 
@@ -37,6 +38,7 @@ db.once('open', function() {
 		//	generate userdata
 			var paymentmethods 	= [ "PayPal", "MasterCard", "EuroCard", "Xtra Debit", "Bankeinzug" ];
 			var emailprovider 	= [ "gmail.com", "gmx.de", "gmx.net", "googlemail.com", "web.de", "ard.tv" ];
+			var taguids 		= [ "165,202,212,101", "120,162,183,16" ];
 			var firstname 		= faker.name.firstName();
 			var lastname		= faker.name.lastName();
 			var name 			= firstname + " " + lastname;
@@ -50,6 +52,7 @@ db.once('open', function() {
 			user.image 			= "users/images/"+name + faker.random.number() + ".png";
 			user.paymentmethod 	= paymentmethods[Math.round(Math.random() * (paymentmethods.length-1))];
 			user.paymentauth		= randomstring.generate();
+			user.taguid 		= taguids[Math.round(Math.random() * (taguids.length-1))];
 
 
 		//	save data to db
