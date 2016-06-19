@@ -38,7 +38,7 @@ db.once('open', function() {
 		//	generate userdata
 			var paymentmethods 	= [ "PayPal", "MasterCard", "EuroCard", "Xtra Debit", "Bankeinzug" ];
 			var emailprovider 	= [ "gmail.com", "gmx.de", "gmx.net", "googlemail.com", "web.de", "ard.tv" ];
-			var taguids 		= [ "165,202,212,101", "120,162,183,16" ];
+			var taguids 		= [ "165,202,212,101", "120,162,183,16", "136,4,103,65", "136,4,248,65","136,4,30,65","136,4,36,65","136,4,247,65","136,4,58,65","136,4,96,65","136,4,104,65", "136,4,57,65", "136,4,95,65" ];
 			var firstname 		= faker.name.firstName();
 			var lastname		= faker.name.lastName();
 			var name 			= firstname + " " + lastname;
