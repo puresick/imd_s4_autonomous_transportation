@@ -57,9 +57,9 @@ var nfcReaderCallback = function() {
         var userCollection = db.collection('users');
         var clubCollection = db.collections('clubs');
 
-        var searchId = new ObjectID(lastUserId);
+        var searchId = lastUserId;
 
-        userCollection.find({_id: searchId}).toArray(function(error, items) {
+        userCollection.find({taguid: searchId}).toArray(function(error, items) {
           (error) ? console.log(error) : null;
 
           if (items === undefined || items.length === 0) {
@@ -98,6 +98,8 @@ var nfcReaderCallback = function() {
       });
     };
   }
+  this.onStart = function(){}
+  this.onExit = function(){}
 };
 
 nfc.start(new nfcReaderCallback());
