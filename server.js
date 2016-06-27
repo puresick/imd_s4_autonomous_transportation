@@ -1,24 +1,15 @@
+var PORT = process.env.PORT || 8080
+var express = require('express')
+var app = express()
+var path = require('path')
+var static_path = path.join(__dirname, '/dist')
+
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var settings = require('./settings/readerSettings.json');
 var nfc = require('MFRC522-node');
-var demo;
+var demo = require('./settings/demoSettings.json');
 var lastUserId = null;
-
-switch (process.argv[2]) {
-  case "demo1":
-    demo = require('./settings/demoSettings.json');
-    break;
-  case "demo2":
-    demo = require('./settings/demoSettings2.json');
-    break;
-  case "demo3":
-    demo = require('./settings/demoSettings3.json');
-    break;
-  default:
-    demo = require('./settings/demoSettings.json');
-    break;
-};
 
 var dbUrl = settings.mongo.url + settings.mongo.db;
 
@@ -41,13 +32,12 @@ function paymentDemo(user, paymentValue, connectedDb) {
   }, 7000);
 };
 
-setInterval(function() {
-  lastUserId = null;
-}, 3000);
+//setInterval(function() {
+//  lastUserId = null;
+//}, 3000);
 
 var nfcReaderCallback = function() {
   //this.onUid = function(nfcId) {
-
     if (lastUserId == null) {
       //uncomment for usage with nfc reader - comment the next line
       //lastUserId = nfcId;
@@ -70,7 +60,7 @@ var nfcReaderCallback = function() {
           if (items === undefined || items.length === 0) {
             console.error('No valid customer');
             db.close();
-          } else if (process.argv[3] === 'payment') {
+          } else if (process.env.MODE === 'payment') {
           //} else if (settings.type === 'payment') {
             switch (items[0].paymentmethod) {
               case "EuroCard":
@@ -87,7 +77,7 @@ var nfcReaderCallback = function() {
                 db.close();
                 break;
             };
-          } else if (process.argv[3] === 'door') {
+          } else if (process.env.MODE === 'door') {
           //} else if (settings.type === 'door') {
             //checking if id available, if true, granting user access
             if (items[0]._id) {
@@ -109,3 +99,14 @@ var nfcReaderCallback = function() {
 
 //nfc.start(new nfcReaderCallback());
 nfcReaderCallback();
+
+
+app.use(express.static(__dirname + '/dist'))
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/dist/index.html')
+})
+
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT, static_path)
+})

@@ -4,21 +4,43 @@
   "description": "software for autonomous transportation service aimed at party people",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startDev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base build --host 0.0.0.0 --port 1337 --mode payment"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/puresick/imd_s4_autonomous_transportation.git"
   },
   "author": "",
+  "browser": {
+    "child_process": false
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/puresick/imd_s4_autonomous_transportation/issues"
   },
   "homepage": "https://github.com/puresick/imd_s4_autonomous_transportation#readme",
   "dependencies": {
+    "MFRC522-node": "1.0.5",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.0",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "jquery": "^3.0.0",
+    "json-loader": "^0.5.4",
     "mongodb": "^2.1.21",
     "mqtt": "^1.10.0",
-    "MFRC522-node": "1.0.5"
+    "node-sass": "^3.8.0",
+    "react": "^0.14.2",
+    "react-router": "^2.5.1",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

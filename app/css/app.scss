@@ -1,0 +1,22 @@
+@import url('animate.css');
+
+body {
+  background: linear-gradient(-90deg, #54f2c3, #a86899,#722a61);
+  overflow: hidden;
+}
+
+.homeView--Logo {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .homeView--Logo--Element {
+    height: 200px;
+    width: 200px;
+    background: url('../images/logo.png') no-repeat center center;
+    background-size: contain;
+  }
+}
