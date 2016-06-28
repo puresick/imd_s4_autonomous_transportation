@@ -13,61 +13,56 @@ body {
   height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 
   .homeView--Logo--Element{
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
+    margin: 40px;
     background: url('../images/logo.png') no-repeat center center;
     background-size: contain;
   }
 
   .homeView--club--element {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
+    margin: 40px;
     background: url('../images/clubColored.png') no-repeat center center;
     background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+
+    .acceptDone {
+      opacity: 0;
+      width: 250px;
+      height: 250px;
+      margin-top: 50px;
+      background: url('../images/done.png') no-repeat center center;
+    }
   }
 
 
   .homeView--subline--element {
     position: relative;
     width: 80%;
-    height: 400px;
+    height: 60px;
 
     .homeView--subline--element--child {
       position: absolute;
       bottom: 0;
-      left: calc(50% - 32px);
+      left: 0;
       height: 64px;
       width: 64px;
       background: url('../images/dollar-bill.png') no-repeat center center;
     }
 
-    .ani1 {
-      animation: spendThemDollarzToLeft 2.3s infinite;
+    .ani1, .ani2, .ani3, .ani4, .ani5, .ani6 {
+      opacity: 0;
     }
-
-    .ani2 {
-      animation: spendThemDollarzToLeft 6.5s infinite;
-    }
-
-    .ani3 {
-      animation: spendThemDollarzToLeft 3.2s infinite;
-    }
-
-    .ani4 {
-      animation: spendThemDollarzToRight 1.4s infinite;
-    }
-
-    .ani5 {
-      animation: spendThemDollarzToRight 4.8s infinite;
-    }
-
-    .ani6 {
-      animation: spendThemDollarzToLeft 3.1s infinite;
-    }
+    
   }
 }

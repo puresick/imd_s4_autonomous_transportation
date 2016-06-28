@@ -6,17 +6,15 @@ export default class Logo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      nfcStatus: null,
-      nfcMode: 'door'
+      animationClass: "wobble"
     }
   }
 
-  componentWillMount() {
-    console.log('componentDidMount');
-  }
-
   componentDidMount() {
-    var _this = this;
+    var nfcStatus = null;
+    var animationError = 'shake';
+    var animationPayment = 'flash';
+    var animationDoor = 'wobble';
 
     var windowWidth = $(document).width() - 600;
 
@@ -115,38 +113,22 @@ export default class Logo extends React.Component {
         duration: 500,
         delay: 0
       }
-    });
+    })
 
-    animation.registerAnimation({
-      name: 'zoomLogo',
-      animation: [
-        {
-          scale: 1,
-          opacity: 1
-        },
-        {
-          scale: 4,
-          opacity: 0
-        }
-      ],
-      presets: {
-        duration: 2000
-      }
-    });
 
+    
+    //$('.homeView--subline--element').animate({width: '10%'}, 2000);
     setTimeout(() => {
       setInterval(() => {
 
         $.get('http://localhost:8080/ajax', (data) => {
           console.log(data);
-          _this.setState({nfcStatus: data})
+          nfcStatus = data;
         });
 
-        if (_this.state.nfcStatus == 'door') {
-          animation.runAnimation($('.homeView--Logo--Element'), 'zoomLogo', () => {
-            console.log('door open animation ended');
-          })
-        } else if (_this.state.nfcStatus == 'payment') {
+        if (nfcStatus == 'door') {
+
+        } else if (nfcStatus == 'payment') {
           animation.runAnimation($('.ani1'), 'moneyRight', () => {
             animation.runAnimation($('.ani2'), 'moneyRight', () => {
               animation.runAnimation($('.ani5'), 'moneyRight', () => {
@@ -166,44 +148,38 @@ export default class Logo extends React.Component {
               });
             });
           });
-        } else if (_this.state.nfcStatus == 'error') {
+        } else if (nfcStatus == 'error') {
+
+        } else {
 
         }
       }, 1000);
     }, 5000);
+
+
   }
 
   render() {
-    if (this.state.nfcMode == 'payment') {
-      return(
-        <div className="homeView--Logo">
-          <div className="homeView--Logo--Element">
-            <div>&nbsp;</div>
-          </div>
-
-          <div className="homeView--subline--element">
-            <div className="homeView--subline--element--child ani1">&nbsp;</div>
-            <div className="homeView--subline--element--child ani2">&nbsp;</div>
-            <div className="homeView--subline--element--child ani3">&nbsp;</div>
-            <div className="homeView--subline--element--child ani4">&nbsp;</div>
-            <div className="homeView--subline--element--child ani5">&nbsp;</div>
-            <div className="homeView--subline--element--child ani6">&nbsp;</div>
-          </div>
-
-          <div className="homeView--club--element">
-            <div className="acceptDone">&nbsp;</div>
-          </div>
-
+    return(
+      <div className="homeView--Logo">
+        <div className="homeView--Logo--Element">
+          <div>&nbsp;</div>
         </div>
-      )
-    } else if (this.state.nfcMode == 'door') {
-      return (
-        <div className="homeView--Logo">
-          <div className="homeView--Logo--Element">
-            <div>&nbsp;</div>
-          </div>
+
+        <div className="homeView--subline--element">
+          <div className="homeView--subline--element--child ani1">&nbsp;</div>
+          <div className="homeView--subline--element--child ani2">&nbsp;</div>
+          <div className="homeView--subline--element--child ani3">&nbsp;</div>
+          <div className="homeView--subline--element--child ani4">&nbsp;</div>
+          <div className="homeView--subline--element--child ani5">&nbsp;</div>
+          <div className="homeView--subline--element--child ani6">&nbsp;</div>
         </div>
-      )
-    }
+
+        <div className="homeView--club--element">
+          <div className="acceptDone">&nbsp;</div>
+        </div>
+
+      </div>
+    )
   }
 }

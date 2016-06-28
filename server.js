@@ -73,7 +73,7 @@ var nfcReaderCallback = function() {
                 paymentDemo(items[0], demo.demo.cashValue, db);
                 status = 'payment';
                 break;
-              case "Mastercard":
+              case "MasterCard":
                 paymentDemo(items[0], demo.demo.cashValue, db);
                 status = 'payment';
                 break;
