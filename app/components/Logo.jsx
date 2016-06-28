@@ -134,6 +134,42 @@ export default class Logo extends React.Component {
       }
     });
 
+    animation.registerAnimation({
+      name: 'closePadlock',
+      animation: [
+        {
+          opacity: 1
+        },
+        {
+          opacity: 0
+        },
+        {
+          opacity: 1
+        },
+        {
+          opacity: 0
+        }
+      ],
+      presets: {
+        duration: 500
+      }
+    });
+
+    animation.registerAnimation({
+      name: 'openPadlock',
+      animation: [
+        {
+          opacity: 0
+        },
+        {
+          opacity: 1
+        }
+      ],
+      presets: {
+        duration: 2000
+      }
+    });
+
     setTimeout(() => {
       setInterval(() => {
 
@@ -143,8 +179,15 @@ export default class Logo extends React.Component {
         });
 
         if (_this.state.nfcStatus == 'door') {
-          animation.runAnimation($('.homeView--Logo--Element'), 'zoomLogo', () => {
-            console.log('door open animation ended');
+          animation.runAnimation($('.homeView--lock--closed'), 'closePadlock', () => {
+            animation.runAnimation($('.homeView--lock--open'), 'openPadlock', () => {
+            
+              console.log('door open animation ended');
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+            });
+            
           })
         } else if (_this.state.nfcStatus == 'payment') {
           animation.runAnimation($('.ani1'), 'moneyRight', () => {
@@ -162,6 +205,9 @@ export default class Logo extends React.Component {
               animation.runAnimation($('.ani6'), 'moneyLeft', () => {
                 animation.runAnimation($('.acceptDone'), 'acceptClub', () => {
                   console.log('ende');
+                  setTimeout(() => {
+                    location.reload();
+                  }, 2000);
                 });
               });
             });
@@ -199,9 +245,9 @@ export default class Logo extends React.Component {
     } else if (this.state.nfcMode == 'door') {
       return (
         <div className="homeView--Logo">
-          <div className="homeView--Logo--Element">
-            <div>&nbsp;</div>
-          </div>
+          <div className="homeView--lock--open">&nbsp;</div>
+          
+          <div className="homeView--lock--closed">&nbsp;</div>
         </div>
       )
     }

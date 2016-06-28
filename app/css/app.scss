@@ -8,6 +8,28 @@ body {
   overflow: hidden;
 }
 
+.homeView--lock--closed {
+  position: absolute;
+  top: calc(50% - 125px);
+  left: calc(50% - 125px);
+  height: 250px;
+  width: 250px;
+  background: url('../images/padlockClosed.png') no-repeat center center;
+  background-size: contain;
+  opacity: 1;
+}
+
+.homeView--lock--open {
+  position: absolute;
+  top: calc(50% - 125px);
+  left: calc(50% - 125px);
+  height: 250px;
+  width: 250px;
+  background: url('../images/padlockOpen.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0;
+}
+
 .homeView--Logo {
   position: absolute;
   height: 100vh;
@@ -16,6 +38,8 @@ body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+
+  
 
   .homeView--Logo--Element{
     height: 250px;
