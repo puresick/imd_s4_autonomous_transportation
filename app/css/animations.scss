@@ -1,0 +1,53 @@
+@keyframes spendThemDollarzToLeft {
+  0% { 
+    opacity: 0; 
+    bottom: 0;
+    left: calc(50% - 32px);
+    transform: rotate(0);
+  }
+  10% { 
+    opacity: 0.4;
+    left: calc(48% - 32px);
+  }
+  50% { 
+    opacity: 1; 
+  }
+  70% { 
+    opacity: 0.8;
+    left: calc(42% - 32px);
+  }
+  100% { 
+    opacity: 0; 
+    bottom: 480px; 
+    left: calc(40% - 32px);
+    transform: rotate(-50deg);
+  }
+}
+
+@keyframes spendThemDollarzToRight {
+  0% { 
+    opacity: 0; 
+    bottom: 0;
+    left: calc(50% - 32px);
+    transform: rotate(0);
+  }
+  10% { 
+    opacity: 0.4;
+    left: calc(52% - 32px);
+  }
+  50% { 
+    opacity: 1; 
+  }
+  70% { 
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% { 
+    opacity: 0; 
+    bottom: 480px; 
+    left: calc(60% - 32px);
+    transform: rotate(40deg);
+  }
+}

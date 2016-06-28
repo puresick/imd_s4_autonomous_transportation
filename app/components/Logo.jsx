@@ -9,8 +9,6 @@ export default class Logo extends React.Component {
     }
   }
 
-  
-
   componentDidMount() {
     var nfcStatus = null;
 
@@ -18,8 +16,9 @@ export default class Logo extends React.Component {
     var animationPayment = 'flash';
     var animationDoor = 'wobble';
 
-    
-    
+
+    //$('.homeView--subline--element').animate({width: '10%'}, 2000);
+
     setTimeout(() => {
       setInterval(() => {
         $('.homeView--Logo--Element').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {
@@ -51,7 +50,7 @@ export default class Logo extends React.Component {
             .removeClass(animationPayment)
             .removeClass(animationDoor)
             .removeClass(animationError)
-            .addClass(animationPayment);   
+            .addClass(animationPayment);
         } else if (nfcStatus == 'error') {
           console.log('fire error animation');
           $('.homeView--Logo--Element')
@@ -69,14 +68,27 @@ export default class Logo extends React.Component {
         }
       }, 1000);
     }, 5000);
-    
+
     
   }
 
   render() {
     return(
       <div className="homeView--Logo">
-        <div className="homeView--Logo--Element animated slideInDown">
+        <div className="homeView--club--element animated slideInDown">
+          <div>&nbsp;</div>
+        </div>
+
+        <div className="homeView--subline--element">
+          <div className="homeView--subline--element--child ani1">&nbsp;</div>
+          <div className="homeView--subline--element--child ani2">&nbsp;</div>
+          <div className="homeView--subline--element--child ani3">&nbsp;</div>
+          <div className="homeView--subline--element--child ani4">&nbsp;</div>
+          <div className="homeView--subline--element--child ani5">&nbsp;</div>
+          <div className="homeView--subline--element--child ani6">&nbsp;</div>
+        </div>
+        
+        <div className="homeView--Logo--Element animated slideInUp">
           <div>&nbsp;</div>
         </div>
       </div>
