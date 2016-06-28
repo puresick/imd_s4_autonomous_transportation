@@ -33,7 +33,8 @@ config = {
     },
     plugins: [
       new ExtractTextPlugin("app.css")
-    ]
+    ],
+    headers: { "Access-Control-Allow-Origin": "*" }
 };
 
 module.exports = config;

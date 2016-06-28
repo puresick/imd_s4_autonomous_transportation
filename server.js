@@ -13,6 +13,8 @@ var lastUserId = null;
 
 var dbUrl = settings.mongo.url + settings.mongo.db;
 
+var status = null;
+
 function paymentDemo(user, paymentValue, connectedDb) {
   console.log('Connecting to ' + user.paymentmethod + ' Payment API');
   setTimeout(function() {
@@ -65,28 +67,36 @@ var nfcReaderCallback = function() {
             switch (items[0].paymentmethod) {
               case "EuroCard":
                 paymentDemo(items[0], demo.demo.cashValue, db);
+                status = 'payment';
                 break;
               case "PayPal":
                 paymentDemo(items[0], demo.demo.cashValue, db);
+                status = 'payment';
                 break;
               case "Mastercard":
                 paymentDemo(items[0], demo.demo.cashValue, db);
+                status = 'payment';
                 break;
               default:
                 console.log('no payment');
+                status = 'error';
                 db.close();
                 break;
             };
+
           } else if (process.env.MODE === 'door') {
           //} else if (settings.type === 'door') {
             //checking if id available, if true, granting user access
             if (items[0]._id) {
               //put code here to open door, for demo to simulate door opening
+              
+              status = 'door';
               console.log('user access granted')
               db.close();
             };
           } else {
             console.log('invalid demo option - use \'door\' or \'payment\'');
+            status = 'error';
             db.close();
           };
         });
@@ -98,14 +108,27 @@ var nfcReaderCallback = function() {
 };
 
 //nfc.start(new nfcReaderCallback());
-nfcReaderCallback();
 
 
 app.use(express.static(__dirname + '/dist'))
 
 app.get('/', (req, res) => {
+res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.sendFile(__dirname + '/dist/index.html')
 })
+
+app.get('/ajax', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  nfcReaderCallback();
+
+  res.send(status);
+  status = null;
+});
 
 app.listen(PORT, () => {
   console.log('Server running on port ' + PORT, static_path)
