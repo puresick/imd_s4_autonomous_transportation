@@ -7,7 +7,7 @@ export default class Logo extends React.Component {
     super(props)
     this.state = {
       nfcStatus: null,
-      nfcMode: 'door'
+      nfcMode: 'payment'
     }
   }
 

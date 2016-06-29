@@ -34,17 +34,16 @@ function paymentDemo(user, paymentValue, connectedDb) {
   }, 7000);
 };
 
-//setInterval(function() {
-//  lastUserId = null;
-//}, 3000);
+setInterval(function() {
+  lastUserId = null;
+}, 5000);
 
 var nfcReaderCallback = function() {
-  //this.onUid = function(nfcId) {
+  this.onUid = function(nfcId) {
     if (lastUserId == null) {
       //uncomment for usage with nfc reader - comment the next line
-      //lastUserId = nfcId;
-      lastUserId = demo.demo.userId;
-      console.log(lastUserId);
+      lastUserId = nfcId;
+      //lastUserId = demo.demo.userId;
 
       MongoClient.connect(dbUrl, function(error, db) {
         (error) ? console.error(error) : console.log('MongoDB connection established');
@@ -52,11 +51,12 @@ var nfcReaderCallback = function() {
         var userCollection = db.collection('users');
         var clubCollection = db.collections('clubs');
 
-        var searchId = new ObjectID(lastUserId);
+        //var searchId = new ObjectID(lastUserId);
+	var searchId = lastUserId;
 
         //uncomment for usage with nfc reader - comment the next line
-        //userCollection.find({taguid: searchId}).toArray(function(error, items) {
-        userCollection.find({_id: searchId}).toArray(function(error, items) {
+       	userCollection.find({taguid: searchId}).toArray(function(error, items) {
+        //userCollection.find({_id: searchId}).toArray(function(error, items) {
           (error) ? console.log(error) : null;
 
           if (items === undefined || items.length === 0) {
@@ -64,6 +64,7 @@ var nfcReaderCallback = function() {
             db.close();
           } else if (process.env.MODE === 'payment') {
           //} else if (settings.type === 'payment') {
+		console.log(items[0].paymentmethod);
             switch (items[0].paymentmethod) {
               case "EuroCard":
                 paymentDemo(items[0], demo.demo.cashValue, db);
@@ -102,12 +103,12 @@ var nfcReaderCallback = function() {
         });
       });
     };
-  //}
-  //this.onStart = function(){}
-  //this.onExit = function(){}
+  }
+  this.onStart = function(){}
+  this.onExit = function(){}
 };
 
-//nfc.start(new nfcReaderCallback());
+nfc.start(new nfcReaderCallback());
 
 
 app.use(express.static(__dirname + '/dist'))
@@ -124,7 +125,7 @@ app.get('/ajax', (req, res) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-  nfcReaderCallback();
+  //nfcReaderCallback();
 
   res.send(status);
   status = null;
